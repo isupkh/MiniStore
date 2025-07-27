@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Card, CardContent } from "./components/ui/card"; 
+import { Card, CardContent } from "./components/ui/card";
 
 type Product = {
   _id: string;
@@ -87,12 +87,11 @@ export default function HomePage() {
               images: ["https://cdn.dummyjson.com/product-images/9/1.jpg"],
             },
             {
-              _id: "6",
+              _id: "10",
               name: "HP Pavilion 15-DK1056WM",
               price: 1099,
               images: ["https://cdn.dummyjson.com/product-images/10/1.jpg"],
             },
-            
           ]);
         }
       })
@@ -118,14 +117,14 @@ export default function HomePage() {
   }
 
   return (
-    <div className="w-[1400px] container mx-auto py-16 ">
+    <div className="mx-auto py-16  max-w-[1400px]">
       <h1 className="text-2xl font-bold mb-8 text-gray-700">All Products</h1>
-      <div className="flex flex-wrap gap-8">
 
+      <div className="flex flex-col sm:flex-row sm:flex-wrap gap-8 justify-center sm:justify-start">
         {product.map((product) => (
           <Link key={product._id} href={`/product/${product._id}`}>
-            <Card className="items-center py-6 w-63 hover:scale-105 duration-300 cursor-pointer">
-              <CardContent className=" flex flex-col">
+            <Card className="w-full sm:w-[250px] hover:scale-105 duration-300 cursor-pointer">
+              <CardContent className="flex flex-col items-center py-6">
                 <img
                   src={
                     product.images && product.images[0]
@@ -135,12 +134,13 @@ export default function HomePage() {
                   alt={product.name}
                   className="h-36 w-full object-contain mb-2"
                 />
-                <h2 className="font-semibold text-gray-600 ">{product.name}</h2>
+                <h2 className="font-semibold text-gray-600 text-center">
+                  {product.name}
+                </h2>
                 <p className="mt-2 text-green-700 font-bold">${product.price}</p>
               </CardContent>
             </Card>
           </Link>
-
         ))}
       </div>
     </div>
