@@ -1,72 +1,50 @@
-"use client";
+'use client'
 
-import { Button } from "../components/ui/button";
-import { useCart } from "../context/cartContext";
+import Link from "next/link"
+import { useCart } from "../context/cartContext"
+import { Button } from "../components/ui/button"
 
 
+const CartPage = () => {
+  const { cart, dispatch } = useCart()
 
-export default function CartPage() {
-  const { state, dispatch } = useCart();
-
-  // Calculate total price of all items
-  const totalPrice = state.cart.reduce(
-    (total, item) => total + item.price * item.quantity,
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * (item.quantity ?? 1),
     0
-  );
-
-  if (state.cart.length === 0) {
-    return <div className="p-10 text-center text-gray-500">Your cart is empty.</div>;
-  }
+  )
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <div className="container mx-auto w-[1400px] p-6">
       <h1 className="text-2xl font-bold mb-6">Your Cart</h1>
+      {cart.length === 0 ? (
+        <p>No items in cart.</p>
+      ) : (
 
-      <div className="space-y-6">
-        {state.cart.map((item) => (
-          <div
-            key={item._id}
-            className="flex justify-between items-center border p-4 rounded"
-          >
-            <div className="flex items-center gap-4">
-              <img
-                src={item.images[0]}
-                alt={item.name}
-                className="w-20 h-20 object-contain"
-              />
-              <div>
-                <h2 className="font-semibold">{item.name}</h2>
-                <p className="text-green-600">${item.price.toFixed(2)}</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <input
-                type="number"
-                min={1}
-                value={item.quantity}
-                onChange={(e) =>
-                  dispatch({
-                    type: "UPDATE_QUANTITY",
-                    payload: { id: item._id, quantity: +e.target.value },
-                  })
-                }
-                className="w-16 border px-2 py-1 rounded"
-              />
-              <Button
-                variant="destructive"
+        <div className=" ">
+          {cart.map(item => (
+            <div key={item._id} className=" flex pr-36 py-6 justify-between border border-gray-300 rounded-lg  items-center">
+              <h2>{item.name}</h2>
+              <p className="text-xl">Price:<span className="text-red-500"> ${item.price}</span></p>
+              <p className="text-xl">Quantity: <span className="text-green-600">{item.quantity}</span></p>
+              <p className="font-bold text-xl">Total: <span className="text-purple-700">${totalPrice}</span>
+                </p>
+              <Button className="bg-red-500 text-white shadow cursor-pointer" 
+                variant="outline"
                 onClick={() => dispatch({ type: "REMOVE_FROM_CART", payload: item._id })}
               >
                 Remove
               </Button>
+          
             </div>
-          </div>
-        ))}
-
-        <div className="text-right font-bold text-xl mt-4">
-          Total: ${totalPrice.toFixed(2)}
+          ))}
+         
+         <Link href="/checkout">
+            <Button className="mt-6 text-xl bg-amber-600 text-white shadow-2xl cursor-pointer">Checkout</Button>
+          </Link>
         </div>
-      </div>
+      )}
     </div>
-  );
+  )
 }
+
+export default CartPage

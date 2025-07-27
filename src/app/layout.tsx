@@ -5,8 +5,6 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import { CartProvider } from "./context/cartContext";
 
-// ✅ Header ra Footer import gareko
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <CartProvider>
+        <CartProvider >
        <Header/>
         <main className="min-h-screen">{children}</main>
          <Footer/>
