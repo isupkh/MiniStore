@@ -6,7 +6,7 @@ import { useCart } from "@/app/context/cartContext";
 
 type Product = {
   _id: string;
-  name: string;
+  title: string;
   price: number;
   images: string[];
   description: string;
@@ -28,7 +28,10 @@ const ProductPage = () => {
 
         if (data && data.success && data.data) {
           setProduct(data.data);
-        } else {
+          console.log(data.data);
+        } 
+        else 
+        {
           console.error("Unexpected API structure", data);
         }
       } catch (error) {
@@ -53,11 +56,11 @@ const ProductPage = () => {
         <img
           src={product.images[0]}
           className="w-full sm:w-72 h-72 object-cover"
-          alt={product.name}
+          alt={product.title}
         />
 
         <div className="w-full sm:w-1/2">
-          <h1 className="text-xl font-bold mt-4">{product.name}</h1>
+          <h1 className="text-xl font-bold mt-4">${product.title}</h1>
           <p className="text-gray-700 text-base sm:text-xl mt-2.5">{product.description}</p>
           <p className="text-green-600 text-xl font-semibold mt-2">${product.price}</p>
           <Button

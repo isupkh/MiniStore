@@ -3,7 +3,7 @@ import React, { createContext, useContext, useReducer } from "react"
 
 type Product = {
   _id: string
-  name: string
+  title: string
   price: number
   images: string[]
   quantity?: number

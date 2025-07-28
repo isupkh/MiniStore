@@ -24,7 +24,7 @@ const CartPage = () => {
               key={item._id}
               className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 p-4 border border-gray-300 rounded-lg"
             >
-              <h2 className="font-semibold">{item.name}</h2>
+              <h2 className="font-semibold">{item.title}</h2>
               <p className="text-lg sm:text-xl">
                 Price: <span className="text-red-500">${item.price}</span>
               </p>
